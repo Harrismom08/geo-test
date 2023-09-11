@@ -22,7 +22,11 @@ pipeline {
         
                 stage('upload artifact'){
             steps{
-               sh 'curl --upload-file target/bioMedical-0.0.2-SNAPSHOT.jar -u admin:devops -v http://198.58.119.40:8081/repository/sharont-repo/'
+               sh 'nexusArtifactUploader artifacts: [[artifactId: 'biomedical', 
+               classifier: '', file: 'target/bioMedical-0.0.2-SNAPSHOT.jar', 
+                type: 'jar']], credentialsId: 'NexusID', groupId: 'QA', 
+                nexusUrl: '198.58.119.40:8081/repository/sharont-repo', nexusVersion: 'nexus3', 
+                protocol: 'http', repository: 'sharont-repo', version: '002'
         }
     }
        }
